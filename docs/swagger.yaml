@@ -1,0 +1,287 @@
+basePath: /
+definitions:
+  main.CreateProductDTO:
+    properties:
+      color:
+        description: Color of the product
+        example: gray
+        type: string
+      description:
+        description: Description of the product
+        example: It's a object used to hold papers together.
+        type: string
+      name:
+        description: Name of the product
+        example: Paperclip
+        type: string
+      price:
+        description: Price of the product in the local currency
+        example: 0.1
+        type: number
+      type:
+        description: Type of the product (e.g., office supplies, electronics, etc.)
+        example: office_supplies
+        type: string
+      weight:
+        description: Weight of the product in kilograms
+        example: 0.05
+        type: number
+    required:
+    - name
+    - price
+    - type
+    - weight
+    type: object
+  main.DefaultResponse:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  main.GetAllProductsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/main.Product'
+        type: array
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  main.GetProductByIdResponse:
+    properties:
+      data:
+        $ref: '#/definitions/main.Product'
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  main.Product:
+    properties:
+      color:
+        description: Color of the product
+        example: gray
+        type: string
+      description:
+        description: Description of the product
+        example: It's a object used to hold papers together.
+        type: string
+      id:
+        description: Unique identifier for the product
+        example: "1"
+        type: string
+      name:
+        description: Name of the product
+        example: Paperclip
+        type: string
+      price:
+        description: Price of the product in the local currency
+        example: 0.1
+        type: number
+      registerDate:
+        description: Register date of the product
+        example: "2025-06-22T19:57:53.788Z"
+        type: string
+      type:
+        description: Type of the product (e.g., office supplies, electronics, etc.)
+        example: office_supplies
+        type: string
+      weight:
+        description: Weight of the product in kilograms
+        example: 0.05
+        type: number
+    type: object
+  main.UpdateProductDTO:
+    properties:
+      color:
+        description: Updated color of the product
+        example: gray
+        type: string
+      description:
+        description: Updated description of the product
+        example: It's a object used to hold papers together.
+        type: string
+      name:
+        description: Updated name of the product
+        example: Paperclip
+        type: string
+      price:
+        description: Updated price of the product
+        example: 0.1
+        type: number
+      registerDate:
+        description: Updated register date of the product
+        example: "2025-06-22T19:57:53.788Z"
+        type: string
+      type:
+        description: Updated type of the product
+        example: office_supplies
+        type: string
+      weight:
+        description: Updated weight of the product
+        example: 0.05
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample CRUD API for managing products.
+  title: Product's CRUD API
+  version: "1.0"
+paths:
+  /products:
+    get:
+      description: Get a list of all products
+      operationId: get-all-products
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Products fetched successfully
+          schema:
+            $ref: '#/definitions/main.GetAllProductsResponse'
+        "500":
+          description: Failed to fetch products
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+      summary: Get all products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Create a new product with the provided details
+      operationId: create-product
+      parameters:
+      - description: Product details
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/main.CreateProductDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "400":
+          description: Invalid request body data
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "500":
+          description: Failed to create product
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+      summary: Create a new product
+      tags:
+      - products
+  /products/{id}:
+    delete:
+      description: Delete a product by its ID
+      operationId: delete-product-by-id
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product deleted successfully
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "400":
+          description: Invalid product ID
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "500":
+          description: Failed to delete product
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+      summary: Delete a product by ID
+      tags:
+      - products
+    get:
+      description: Get a product by its ID
+      operationId: get-product-by-id
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product fetched successfully
+          schema:
+            $ref: '#/definitions/main.GetProductByIdResponse'
+        "400":
+          description: Invalid product ID
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "500":
+          description: Failed to fetch product
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+      summary: Get a product by ID
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product with the provided details
+      operationId: update-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product details
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/main.UpdateProductDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product updated successfully
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "400":
+          description: Invalid product ID or request body data
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+        "500":
+          description: Failed to update product
+          schema:
+            $ref: '#/definitions/main.DefaultResponse'
+      summary: Update an existing product
+      tags:
+      - products
+schemes:
+- http
+swagger: "2.0"
