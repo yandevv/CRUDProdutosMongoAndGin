@@ -354,8 +354,7 @@ func setupRouter(mongoClient *mongo.Client) *gin.Engine {
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
-		os.Exit(1)
+		log.Printf("Error loading .env file: %v", err)
 	}
 
 	mongoConnectionUri := os.Getenv("MONGODB_CONNECTION_URI")
