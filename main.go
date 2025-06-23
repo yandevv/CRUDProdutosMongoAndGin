@@ -349,8 +349,9 @@ func setupRouter(mongoClient *mongo.Client) *gin.Engine {
 // @title			Product's CRUD API
 // @version		1.0
 // @description	This is a sample CRUD API for managing products.
-// @host			localhost:8080
-// @schemes		http
+// @host			https://crudprodutosmongoandgin.onrender.com
+// @BasePath		/
+// @schemes		http https
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {

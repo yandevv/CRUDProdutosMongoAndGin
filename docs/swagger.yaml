@@ -125,7 +125,7 @@ definitions:
         example: 0.05
         type: number
     type: object
-host: localhost:8080
+host: https://crudprodutosmongoandgin.onrender.com
 info:
   contact: {}
   description: This is a sample CRUD API for managing products.
@@ -284,4 +284,5 @@ paths:
       - products
 schemes:
 - http
+- https
 swagger: "2.0"

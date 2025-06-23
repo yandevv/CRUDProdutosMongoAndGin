@@ -415,9 +415,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "https://crudprodutosmongoandgin.onrender.com",
 	BasePath:         "/",
-	Schemes:          []string{"http"},
+	Schemes:          []string{"http", "https"},
 	Title:            "Product's CRUD API",
 	Description:      "This is a sample CRUD API for managing products.",
 	InfoInstanceName: "swagger",
