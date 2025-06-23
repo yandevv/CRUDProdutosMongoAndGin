@@ -380,5 +380,13 @@ func main() {
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	router.Run(":8080")
+	port := os.Getenv("PORT")
+
+	if port != "" {
+		log.Printf("Starting server on port %s", port)
+	} else {
+		port = "8080"
+		log.Println("PORT environment variable not set, using default port 8080")
+	}
+	router.Run(":" + port)
 }
