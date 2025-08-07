@@ -370,6 +370,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	log.Println("Connected to MongoDB")
 
 	defer func() {
 		if err := client.Disconnect(context.TODO()); err != nil {
